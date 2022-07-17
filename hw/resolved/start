@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cp /etc/resolvconf/resolv.conf.d/head /etc/resolvconf/resolv.conf.d/head.bak
+cp $PWD/resolved-head /etc/resolvconf/resolv.conf.d/head
+systemctl restart resolvconf

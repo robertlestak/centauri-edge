@@ -1,0 +1,16 @@
+#!/bin/bash
+
+docker stop shdw
+docker rm shdw
+
+if [[ "$1" == "stop" ]]; then
+    exit 0
+fi
+
+docker run -d \
+    --name shdw \
+    --platform linux/arm/v7 \
+    --net centauri \
+    --env STATIC_DIR=/static \
+    --env DEFAULT_PEER_API=https://peer.edge.centauri.sh \
+    registry.lestak.sh/shdw:de237237e4e2ca7e6a77636f22dab2c2441fb670

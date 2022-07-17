@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>Centauri Edge | decentralized p2p data bus</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            #moreinfo {
+                display: none;
+            }
+            #showmore {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Centauri Edge</h1>
+
+        <p>
+            Peer: <b>{{HOSTNAME}}</b>
+        </p>
+
+        <p >
+            <small id="showmore"><u>what's this?</u></small>
+        </p>
+
+        <p id="moreinfo">
+            Centauri is a decentralized p2p network which allows users around the world to send 100% encrypted and private files, messages, and more, without relying on conventional internet infrastructure.
+            You are connected to a Centauri network peer. <b>This does not have internet access.</b>
+            <br>
+            You can use a Centauri client on your device, or one of the services below to access the Centauri network.
+
+            <br><br>
+            <i>What does this do?</i>
+            <br>
+            Centauri Edge peers are intended to service areas with little to no internet access. 
+            A local Centauri network can be set up with edge peers forming a mesh network through which local clients can communicate with each other over long distances.
+        </p>
+
+        <b>Services:</b>
+        <ul>
+            <li>
+                <a href="https://peer.edge.centauri.sh">Centauri Peer API</a>
+            </li>
+
+            <li>
+                <a href="https://peer.edge.centauri.sh/docs/">Centauri Docs</a>
+            </li>
+
+            <li>
+                <a href="https://shdw.edge.centauri.sh">SHDW messaging</a>
+            </li>
+
+        </ul>
+        <script>
+            document.querySelector('#showmore').addEventListener('click', function(e) {
+                // toggle more info
+                document.querySelector('#moreinfo').style.display = document.querySelector('#moreinfo').style.display == 'block' ? 'none' : 'block';
+            })
+        </script>
+    </body>
+</html>

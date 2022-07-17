@@ -1,0 +1,20 @@
+#!/bin/bash
+
+docker stop coredns
+docker rm coredns
+
+if [[ "$1" == "stop" ]]; then
+    exit 0
+fi
+
+docker run -d \
+    --name coredns \
+    --platform linux/arm/v7 \
+    -p 53:53/udp \
+    -p 9153:9153 \
+    --net centauri \
+    --dns=1.1.1.1 \
+    --env ROUTER_IP=192.168.0.1 \
+    --restart always \
+    -v $PWD/coredns:/data \
+    coredns/coredns -conf /data/Corefile

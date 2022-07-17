@@ -1,0 +1,13 @@
+#!/bin/bash
+
+cp /etc/hostapd/hostapd.conf /etc/hostapd/hostapd.conf.bak
+cp $PWD/hostapd.conf /etc/hostapd/hostapd.conf
+
+# if /etc/default/hostapd file contains "DAEMON_CONF" line, then replace it with the new one
+if grep -q "DAEMON_CONF" /etc/default/hostapd; then
+    sed -i "s/DAEMON_CONF=.*/DAEMON_CONF=\"\/etc\/hostapd\/hostapd.conf\"/g" /etc/default/hostapd
+else
+    echo "DAEMON_CONF=\"\/etc\/hostapd\/hostapd.conf\"" >> /etc/default/hostapd
+fi
+
+systemctl restart hostapd

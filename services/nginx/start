@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+docker stop nginx
+docker rm nginx
+
+if [[ "$1" == "stop" ]]; then
+    exit 0
+fi
+
+docker run -d \
+    -p 80:80 \
+    -p 443:443 \
+    --platform linux/arm/v7 \
+    -v $PWD:/etc/nginx \
+    --entrypoint /etc/nginx/entrypoint.sh \
+    --name nginx \
+    --net centauri \
+    registry.lestak.sh/nginx-mo:v0.0.7

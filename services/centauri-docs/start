@@ -1,0 +1,14 @@
+#!/bin/bash
+
+docker stop centauri_docs
+docker rm centauri_docs
+
+if [[ "$1" == "stop" ]]; then
+    exit 0
+fi
+
+docker run -d \
+    --name centauri_docs \
+    --platform linux/arm/v7 \
+    --net centauri \
+    registry.lestak.sh/centauri-docs:e6cdafd5564aa9737ff2502d28ea9b7f7993e507-dev

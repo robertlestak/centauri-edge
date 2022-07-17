@@ -1,0 +1,19 @@
+
+captive.apple.com.:53 {
+    template ANY ANY {
+        answer "{{ .Name }} 60 IN A 127.0.0.1"
+    }
+    log
+    prometheus 0.0.0.0:9153
+    errors
+}
+
+.:53 {
+    template ANY ANY {
+        answer "{{ .Name }} 60 IN A {$ROUTER_IP}"
+    }
+    forward . 1.1.1.1 8.8.8.8
+    log
+    prometheus 0.0.0.0:9153
+    errors
+}

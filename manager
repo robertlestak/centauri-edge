@@ -1,0 +1,66 @@
+#!/bin/bash
+set -e
+
+startAll() {
+    local TARGETS=${1:-"services"}
+    docker network create centauri || true
+    for d in $(ls -d $TARGETS/*); do
+        if [ -f "$d/start" ]; then
+            cd "$d"
+            bash start
+            cd -
+        fi
+    done
+}
+
+stopAll() {
+    local TARGETS=${1:-"services"}
+    for d in $(ls -d $TARGETS/*); do
+        if [ -f "$d/start" ]; then
+            cd "$d"
+            bash start stop
+            cd -
+        fi
+    done
+}
+
+start() {
+    local TARGETS=$1
+    echo "Starting manager..."
+    startAll $TARGETS
+}
+
+stop() {
+    local TARGETS=$1
+    echo "Stopping manager..."
+    stopAll $TARGETS
+}
+
+restart() {
+    local TARGETS=$1
+    echo "Restarting manager..."
+    stop $TARGETS
+    start $TARGETS
+}
+
+main() {
+    ACTION=$1
+    TARGETS=$2
+    case "$ACTION" in
+    start)
+        start $TARGETS
+        ;;
+    stop)
+        stop $TARGETS
+        ;;
+    restart)
+        restart $TARGETS
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart} {hw/services}"
+        exit 1
+        ;;
+    esac
+}
+
+main "$@"
